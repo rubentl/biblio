@@ -1,0 +1,249 @@
+@charset "utf-8";
+/* CSS Document */
+/* <link rel="stylesheet/less" type="text/css" href="estilos.less"> */
+/* <script src="less.js" type="text/javascript"></script> */
+body {
+  background: url("../img/papel.jpg") repeat;
+  margin: 0;
+  padding: 0;
+  min-width: 800px;
+}
+#contenedor {
+  position: relative;
+  margin: 2% auto;
+  padding: 0;
+  width: 900px;
+  min-width: 800px;
+  overflow: hidden;
+  background: url("../img/fondo.jpg") repeat;
+}
+#cabecera {
+  background: url("../img/logo.png") top left no-repeat;
+  position: relative;
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  overflow: hidden;
+}
+#registro {
+  position: relative;
+  margin: 2em 3em 1em;
+  padding: 0.5em;
+  float: right;
+  overflow: hidden;
+  background: url("../img/registro.png") top right repeat;
+}
+#cristal {
+  background: url("../img/papel.jpg") fixed;
+  padding: 1em;
+  overflow: hidden;
+}
+.dcha {
+  /* position:relative; */
+
+  /* float:right; */
+
+  /* width:70%; */
+
+  text-align: left;
+  color: #000;
+}
+.izda {
+  /* position:relative; */
+
+  /* float:left; */
+
+  /* width:30%;	 */
+
+  text-align: right;
+}
+h1 {
+  text-align: center;
+}
+a {
+  text-decoration: none;
+  color: #6c5031;
+}
+a:hover {
+  text-decoration: underline;
+  color: #900;
+}
+#menu {
+  clear: both;
+  position: relative;
+  margin: 0 auto;
+  padding: 0;
+  width: 100%;
+  overflow: hidden;
+}
+#menu ul {
+  list-style: none;
+}
+#menu li, .volver {
+  position: relative;
+  margin: 0 0.3em;
+  padding: 5px 0;
+  float: left;
+  text-align: center;
+  width: 110px;
+  height: 38px;
+  background: url("../img/boton.png") top center no-repeat;
+}
+#menu ul li a, .volver a {
+  display: block;
+  color: #6c5031;
+  font-weight: bold;
+  text-align: center;
+  padding-top: 5px;
+}
+#contenido {
+  position: relative;
+  margin: 10px auto;
+  padding: 5% 5%;
+  width: 670px;
+  min-width: 670px;
+  background: #fdfdfd url("../img/doc.png") top center no-repeat;
+  color: #6c5031;
+  overflow: hidden;
+}
+.query,
+input[type='text'],
+input[type='number'],
+input[type='password'],
+textarea,
+select,
+input[type='checkbox'] {
+  color: #6c5031;
+  font-weight: bold;
+  background-color: #ffffff;
+  margin-top: 2px;
+  border: 1px solid #ceb193;
+}
+.query {
+  border: 2px outset #6c5031;
+  height: 25px;
+  font-size: 1.1em;
+}
+.ayuda {
+  color: #be9970;
+}
+acronym {
+  cursor: help;
+}
+#pie {
+  position: relative;
+  clear: both;
+  width: 100%;
+  margin-top: 30px;
+  font-size: 0.9em;
+}
+#contacto, #validaciones, #migas {
+  position: relative;
+  margin: 1%;
+  padding: 0 1%;
+}
+#contacto, #validaciones, .alinea {
+  float: left;
+  margin-top: 1px;
+}
+#validaciones, #contacto {
+  padding-top: 10px;
+}
+#migas {
+  float: right;
+}
+#submit {
+  margin-left: 50px;
+}
+fieldset a, .enlace {
+  color: #06F;
+  text-decoration: underline;
+}
+.centrado, .volver {
+  text-align: center;
+}
+.justificado {
+  text-align: justify;
+}
+#listado, #centrado {
+  position: relative;
+  margin: 0 auto;
+  padding: 0;
+  width: 60%;
+}
+.tabla {
+  width: 100%;
+}
+#listado dt {
+  color: #06F;
+}
+span.alinea {
+  color: #BB9468;
+}
+.error-message {
+  color: #ff0000;
+  font-size: small;
+  margin-bottom: 1em;
+}
+.form-error {
+  border: 1px #ff0000 solid;
+}
+.mizdo, .volver {
+  margin-left: 5em;
+}
+legend, .volver {
+  font-weight: bold;
+}
+.volver {
+  margin-bottom: 10px;
+}
+#tabla {
+  width: 100%;
+  border: 1px solid #87643d;
+  border-spacing: 0;
+}
+#tabla th {
+  text-align: center;
+  border: 1px solid #ceb193;
+}
+#tabla td {
+  border: 1px solid #ceb193;
+}
+#idtab li {
+  text-decoration: none;
+  display: inline;
+  list-style: none;
+}
+#idtab ul {
+  margin: 0;
+  padding: 0;
+}
+#query {
+  position: relative;
+  margin: 0px auto;
+  padding: 1em;
+  width: 90%;
+  height: 400px;
+  overflow: auto;
+  border: 1px #000 solid;
+  background: url("../img/fondo.jpg");
+}
+#sql {
+  width: 100%;
+  height: 60%;
+}
+.enlace-boton {
+  margin: 0 10px 0 10px;
+  background-color: #ffffff;
+  border: 1px solid #87643d;
+  text-decoration: none;
+  padding: 3px;
+  font-size: 13px;
+  color: #6c5031;
+}
+.enlace-boton:hover {
+  text-decoration: none;
+  border: 3px solid #87643d;
+  color: #6c5031;
+  font-weight: bold;
+}
