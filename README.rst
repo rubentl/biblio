@@ -26,3 +26,5 @@ Autocompletar los campos autores, temas y editoriales con ajax.
 Añadir un editor de campo como Tinymce para editar los contenidosHtml.
 
 Añadir un feed de noticias y novedades.
+
+Poner un CAPTCHA en el registro y/o supervisalo.

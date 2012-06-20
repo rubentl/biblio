@@ -24,8 +24,8 @@
 	?>
     <span class="ayuda">(si / no)</span>
     <?php 
-		echo $this->Form->input('password', array('label' => array('text' => '*Contraseña: ', 'class' => 'alinea'), 'size'=>'30'));
-		echo $this->Form->input('rep_password', array('label' => array('text' => '*Repite Contraseña: '), 'type' => 'password', 'size'=>'30'));
+		echo $this->Form->input('password', array('label' => array('text' => '*Contraseña: ', 'class' => 'alinea'), 'size'=>'30','value'=>''));
+		echo $this->Form->input('rep_password', array('label' => array('text' => '*Repite Contraseña: '), 'type' => 'password', 'size'=>'30','value'=>''));
     ?>
     <?php
 		echo $this->Form->hidden('tipo_id', array('value'=> 2)); // usuario
