@@ -38,38 +38,72 @@
 DEBUGKIT.module('historyPanel');
 DEBUGKIT.historyPanel = function () {
 	var toolbar = DEBUGKIT.toolbar,
-		$ = DEBUGKIT.$,
-		historyLinks;
+		Element = DEBUGKIT.Util.Element,
+		Cookie = DEBUGKIT.Util.Cookie,
+		Event = DEBUGKIT.Util.Event,
+		Request = DEBUGKIT.Util.Request,
+		Collection = DEBUGKIT.Util.Collection,
+		historyLinks = [];
 
 	// Private methods to handle JSON response and insertion of
 	// new content.
 	var switchHistory = function (response) {
+		try {
+			var responseJson = eval( '(' + response.response.text + ')');
+		} catch (e) {
+			alert('Could not convert JSON response');
+			return false;
+		}
 
-		historyLinks.removeClass('loading');
+		Element.removeClass(historyLinks, 'loading');
 
-		$.each(toolbar.panels, function (id, panel) {
-			if (panel.content === undefined || response[id] === undefined) {
+		Collection.apply(toolbar.panels, function (panel, id) {
+			if (panel.content === undefined || responseJson[id] === undefined) {
 				return;
 			}
 
-			var regionDiv = panel.content.find('.panel-resize-region');
-			if (!regionDiv.length) {
-				return;
-			}
+			var panelDivs = panel.content.childNodes,
+				i = panelDivs.length,
+				regionDiv;
 
-			var regionDivs = regionDiv.children();
-
-			regionDivs.filter('div').hide();
-			regionDivs.filter('.panel-history').each(function (i, panelContent) {
-				var panelId = panelContent.id.replace('-history', '');
-				if (response[panelId]) {
-					panelContent = $(panelContent);
-					panelContent.html(response[panelId]);
-					var lists = panelContent.find('.depth-0');
-					toolbar.makeNeatArray(lists);
+			while (i--) {
+				var panelRegion = panelDivs[i];
+				if (panelRegion.nodeType != 1) {
+					continue;
 				}
-				panelContent.show();
-			});
+				if (
+					Element.nodeName(panelRegion, 'DIV') &&
+					Element.hasClass(panelRegion, 'panel-resize-region')
+				) {
+					regionDiv = panelRegion;
+					break;
+				}
+			}
+			if (!regionDiv) return;
+
+			var regionDivs = regionDiv.childNodes,
+				i = regionDivs.length;
+
+			while (i--) {
+				//toggle history element, hide current request one.
+				var panelContent = regionDivs[i];
+				if (Element.nodeName(panelContent, 'DIV') && Element.hasClass(panelContent, 'panel-history')) {
+					var panelId = panelContent.id.replace('-history', '');
+					if (responseJson[panelId]) {
+						panelContent.innerHTML = responseJson[panelId];
+						var lists;
+						if (panelContent.getElementsByClassName) {
+							lists = panelContent.getElementsByClassName('depth-0');
+						} else {
+							lists = panelContent.getElementsByTagName('UL');
+						}
+						toolbar.makeNeatArray(lists);
+					}
+					Element.show(panelContent);
+				} else if (Element.nodeName(panelContent, 'DIV')) {
+					Element.hide(panelContent);
+				}
+			}
 		});
 	};
 
@@ -77,53 +111,81 @@ DEBUGKIT.historyPanel = function () {
 	var restoreCurrentState = function () {
 		var id, i, panelContent, tag;
 
-		historyLinks.removeClass('loading');
+		Element.removeClass(historyLinks, 'loading');
 
-		$.each(toolbar.panels, function (panel, id) {
+		//for (id in toolbar.panels) {
+		Collection.apply(toolbar.panels, function (panel, id) {
 			if (panel.content === undefined) {
 				return;
 			}
-			var regionDiv = panel.content.find('.panel-resize-region');
-			if (!regionDiv.length) {
-				return;
+
+			var panelDivs = panel.content.childNodes,
+				i = panelDivs.length,
+				regionDiv;
+
+			while (i--) {
+				var panelRegion = panelDivs[i];
+				if (panelRegion.nodeType != 1) {
+					continue;
+				}
+				if (
+					Element.nodeName(panelRegion, 'DIV') &&
+					Element.hasClass(panelRegion, 'panel-resize-region')
+				) {
+					regionDiv = panelRegion;
+					break;
+				}
 			}
-			var regionDivs = regionDiv.children();
-			regionDivs.filter('div').show()
-				.end()
-				.filter('.panel-history').hide()
+			if (!regionDiv) return;
+
+			var regionDivs = regionDiv.childNodes,
+				i = regionDivs.length;
+
+			while (i--) {
+				panelContent = regionDivs[i];
+				if (Element.nodeName(panelContent, 'DIV') && Element.hasClass(panelContent, 'panel-history')) {
+					Element.hide(panelContent);
+				} else if (Element.nodeName(panelContent, 'DIV')) {
+					Element.show(panelContent);
+				}
+			}
 		});
 	};
 
 	function handleHistoryLink (event) {
 		event.preventDefault();
 
-		historyLinks.removeClass('active');
-		$(this).addClass('active loading');
+		Element.removeClass(historyLinks, 'active');
+		Element.addClass(this, 'active loading');
 
 		if (this.id === 'history-restore-current') {
 			restoreCurrentState();
 			return false;
 		}
 
-		var xhr = $.ajax({
-			url: this.href,
-			type: 'GET',
-			dataType: 'json'
+		var remote = new Request({
+			onComplete : switchHistory,
+			onFail : function () {
+				alert('History retrieval failed');
+			}
 		});
-		xhr.success(switchHistory).fail(function () {
-			alert('History retrieval failed');
-		});
+		remote.send(this.href);
 	};
 
 	return {
 		init : function () {
 			if (toolbar.panels['history'] === undefined) {
-				console.error('Bailing on history');
+				console.log('bailing on history');
 				return;
 			}
 
-			historyLinks = toolbar.panels.history.content.find('.history-link');
-			historyLinks.on('click', handleHistoryLink);
+			var anchors = toolbar.panels['history'].content.getElementsByTagName('A');
+			Collection.apply(anchors, function (button) {
+				if (Element.hasClass(button, 'history-link')) {
+					historyLinks.push(button);
+					Event.addEvent(button, 'click', handleHistoryLink);
+				}
+			});
 		}
 	};
 }();

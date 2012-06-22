@@ -3,8 +3,8 @@
 App::uses('Ip', 'Model');
 
 class AppController extends Controller{
-    public $helpers = array('Html', 'Form', 'Js', 'Util', 'Session', 'Tinymce');
-    public $components = array('Session');//,'DebugKit.Toolbar'));
+    public $helpers = array('Html', 'Form', 'Js', 'Util', 'Session');
+    public $components = array('Session');//,'DebugKit.Toolbar');
     public $paginate = array('maxLimit' => 10);
 
     function checkAdminSession() { 

@@ -1,7 +1,17 @@
 <?php 
     $this->Html->addCrumb(__('Secciones'), '/admin/contenidoHtmls'); 
     $this->set('title_for_layout',__('ContenidoHtml - Biblioteca')); 
-?>
+    echo $this->Html->script('tinymce/tiny_mce');
+    echo $this->Html->scriptBlock('
+        tinyMCE.init({mode: "textareas",
+            theme: "advanced",
+            language: "es",
+            plugins: "table,paste,insertdatetime",
+            theme_advanced_buttons1_add: "|,cut,copy,paste",
+            theme_advanced_buttons2_add: "|,pastetext,pasteword,selectall,|,table,|,insertdate",
+            theme_advanced_buttons3: "",
+            oninit: function(){redrawSombras();}});
+    ');?>
 
 <div class="contenidoHtmls form">
 <h1>Contenidos Html</h1>
@@ -13,8 +23,8 @@
 		echo $this->Form->input('Seccione', array('label' => array('text' => 'Sección: ', 'class' => 'alinea')));
         echo $this->Form->input('texto',array(
             'label' => array('text' => 'Texto: ', 'class' => 'alinea'), 
-            'escape'=>true, 'rows' => '10', 'cols' => '65'));
-		// echo $this->Form->input('fecha',array('label' => array('text' => 'Fecha: ', 'class' => 'alinea')));
+            'escape'=>true, 'rows' => '20', 'cols' => '65'));
+		echo $this->Form->input('fecha',array('label' => array('text' => 'Fecha: ', 'class' => 'alinea')));
 		echo $this->Form->input('borrado',array('label' => array('text' => 'Borrado: ', 'class' => 'alinea')));
 	?>
 <div class="centrado"><?php echo $this->Form->end(__('Guardar'));?></div>

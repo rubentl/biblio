@@ -1,9 +1,9 @@
-==========
 Biblioteca
 ==========
 
 :Autor: Rubén Toca Lucio
 :Versión: 1.0
+:Lenguaje: php
 
 Es una aplicación web hecha en **php** con el framework **cakephp** en la versión *2.1.3*.
 
@@ -17,14 +17,11 @@ Es la gestión de mi biblioteca.
 
 La estructura de la base de datos está en Config/Schema/biblioteca.sql.
 
-TODO
 ----
-Validación **XHTML** y **CSS**.
 
-Autocompletar los campos autores, temas y editoriales con ajax.
-
-Añadir un editor de campo como Tinymce para editar los contenidosHtml.
-
-Añadir un feed de noticias y novedades.
-
-Poner un CAPTCHA en el registro y/o supervisalo.
+TODO:
+    - Validación **XHTML** y **CSS**.
+    - Autocompletar los campos autores, temas y editoriales con ajax.
+    -  `Hecho` Añadir un editor de campo como Tinymce para editar los contenidosHtml.
+    - Añadir un feed de noticias y novedades.
+    - Poner un CAPTCHA en el registro y/o supervisarlo.

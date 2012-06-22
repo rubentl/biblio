@@ -57,7 +57,7 @@ class DebugKitDebugger extends Debugger {
 					$indent++;
 				}
 			}
-			$indent = str_repeat(' &raquo; ', $indent);
+			$indent = str_repeat(' » ', $indent);
 
 			extract($timer);
 			$start = round($start * 1000, 0);

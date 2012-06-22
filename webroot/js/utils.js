@@ -14,8 +14,17 @@ function sombras(){
     $("#contenido_dropShadow>.dropShadow").corner();
     $("#registro_dropShadow>.dropShadow").corner();
     $("fieldset").corner();
-    $('textarea').dropShadow({left:4, top:6});
 
+};
+
+function redrawSombras(){
+    $("#contenido").redrawShadow();
+    $('#contenedor').redrawShadow();
+    $('#registro, #query').redrawShadow();
+    $("#contenedor_dropShadow>.dropShadow").corner();
+    $("#contenido_dropShadow>.dropShadow").corner();
+    $("#registro_dropShadow>.dropShadow").corner();
+    $('input[type!="file"]').redrawShadow();
 };
 
 $(window).load(function(){
@@ -37,14 +46,9 @@ $(window).load(function(){
     $('.transify').corner();
     sombras();
 
-    $('a#pag').click(function(){
-        $("#contenido").redrawShadow();
-        $('#contenedor').redrawShadow();
-        $('#registro, #query').redrawShadow();
-        $("#contenedor_dropShadow>.dropShadow").corner();
-        $("#contenido_dropShadow>.dropShadow").corner();
-        $("#registro_dropShadow>.dropShadow").corner();
-    });
+    $('a#pag').click(function(event){redrawSombras();});
+
+    $('#contenido').resize(function(event){redrawSombras();});
 
 	$("#log").submit(function(event) {  
 		var pass = $("input#contrasena").val();
