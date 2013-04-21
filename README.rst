@@ -27,4 +27,4 @@ TODO
     + [X] [#A] Añadir un editor de campo como Tinymce para editar los contenidosHtml.
     + [ ] [#C] Añadir un feed de noticias y novedades.
     + [X] [#B] Poner un CAPTCHA en el registro y/o supervisarlo.
-    + [ ] [#C] Cambiar las páginas de error que vienen por defecto.  
+    + [X] [#C] Cambiar las páginas de error que vienen por defecto.  
