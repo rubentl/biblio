@@ -16,11 +16,11 @@
  * @license       MIT License (http://www.opensource.org/licenses/mit-license.php)
  */
 ?>
-<h2>No encontrado</h2>
+<h2><?php echo __('No encontrado') ?></h2>
 <p class="error">
-	<strong><?php echo __d('cake', 'Error'); ?>: </strong>
+	<strong><?php echo __('Error'); ?>: </strong>
 	<?php printf(
-		__d('cake', 'La direcci&oacute;n solicitada %s no se encontr&oacute;.'),
+		__('La direcci&oacute;n solicitada %s no se encontr&oacute;.'),
 		"<strong>'{$url}'</strong>"
 	); ?>
 </p>
