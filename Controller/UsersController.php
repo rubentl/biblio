@@ -7,7 +7,9 @@ App::uses('AppController', 'Controller');
  */
 class UsersController extends AppController {
 	
-	public function login(){
+    public $components = array('MathCaptcha');
+    
+    public function login(){
 		if ($this->request->is('post')){
 			$db = $this->User->findByUsername($this->data['usuario']);
 			if (!empty($db) && ($db['User']['password'] == $this->data['contrasena'])){
@@ -58,18 +60,24 @@ class UsersController extends AppController {
  * @return void
  */
     public function add() {
+    	$this->set('captcha', $this->MathCaptcha->getCaptcha());
+        
         if ($this->Session->check('User')){
             $this->Session->setFlash(__('Ya estás registrado'));
             $this->redirect(array('controller'=>'inicio','action'=>'mensaje'));
         }
 		if ($this->request->is('post')) {
-			$this->User->create();
-			if ($this->User->save($this->request->data)) {
-				$this->Session->setFlash(__('Te has registrado con éxito. <br /> Ahora puedes iniciar sesión con tu nombre y contraseña.'));
-				$this->redirect(array('action' => 'index'));
-			} else {
-				$this->Session->setFlash(__('Ha habido un fallo en el registro.'));
-			}			
+            $this->User->create();
+            if ($this->MathCaptcha->validate($this->request->data['User']['captcha'])){
+			    if ($this->User->save($this->request->data)) {
+				    $this->Session->setFlash(__('Te has registrado con éxito. <br /> Ahora puedes iniciar sesión con tu nombre y contraseña.'));
+				    $this->redirect(array('action' => 'index'));
+			    } else {
+				    $this->Session->setFlash(__('Ha habido un fallo en el registro.'));
+                }
+            } else {
+                $this->Session->setFlash('El resultado calculado es incorrecto. Int&eacute;ntalo otra vez');
+            }           
 		}
 		$tipos = $this->User->Tipo->find('list');
 		$this->set(compact('tipos'));

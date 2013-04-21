@@ -28,6 +28,7 @@
 		echo $this->Form->input('rep_password', array('label' => array('text' => '*Repite Contraseña: '), 'type' => 'password', 'size'=>'30','value'=>''));
     ?>
     <?php
+        echo $this->Form->input('captcha', array('label' => 'Calcula esto: '.$captcha));
 		echo $this->Form->hidden('tipo_id', array('value'=> 2)); // usuario
 	?>
     </div>
