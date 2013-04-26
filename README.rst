@@ -24,14 +24,7 @@ TODO
 
     + [o] [#A] Validación **XHTML** y **CSS**.
     + [ ] [#B] Autocompletar los campos autores, temas y editoriales con ajax.
-<<<<<<< HEAD
     + [X] Añadir un editor de campo como Tinymce para editar los contenidosHtml.
-    + [ ] [#C] Añadir un feed de noticias y novedades.
-    + [ ] [#B] Poner un CAPTCHA en el registro y/o supervisarlo.
-    + [ ] [#C] Cambiar las páginas de error que vienen por defecto.  
-=======
-    + [X] [#A] Añadir un editor de campo como Tinymce para editar los contenidosHtml.
     + [ ] [#C] Añadir un feed de noticias y novedades.
     + [X] [#B] Poner un CAPTCHA en el registro y/o supervisarlo.
     + [X] [#C] Cambiar las páginas de error que vienen por defecto.  
->>>>>>> 2212e52ceff466ab0d3cd2debf4ceef55232143a
