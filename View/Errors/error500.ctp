@@ -16,10 +16,10 @@
  * @license       MIT License (http://www.opensource.org/licenses/mit-license.php)
  */
 ?>
-<h2><?php echo $name; ?></h2>
+<h2><?php echo __('Error grave') ?></h2>
 <p class="error">
-	<strong><?php echo __d('cake', 'Error'); ?>: </strong>
-	<?php echo __d('cake', 'An Internal Error Has Occurred.'); ?>
+	<strong><?php echo __('Error'); ?>: </strong>
+	<?php echo __('Ha ocurrido un error interno.'); ?>
 </p>
 <?php
 if (Configure::read('debug') > 0 ):
