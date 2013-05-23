@@ -1,4 +1,4 @@
-<?
+<?php
 /**
 * MathCaptcha Component for CakePHP 2.
 *
@@ -22,6 +22,8 @@
 * @link http://codefool.tumblr.com/
 * @filesource
 */
+App::uses('Component', 'Controller');
+
 class MathCaptchaComponent extends Component {
 
   /**
@@ -462,4 +464,3 @@ class MathCaptchaComponent extends Component {
     return $validated;
   }
 }
-?>

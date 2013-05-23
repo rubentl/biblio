@@ -3,7 +3,7 @@ App::uses('Model', 'Model');
 
 class AppModel extends Model {
 
-	public function beforeDelete($cascada){
+	public function beforeDelete($cascada = true){
 		$this->saveField('borrado','si');
 		if ($cascada){
 			$this->_deleteDependent($this->id, $cascada);
