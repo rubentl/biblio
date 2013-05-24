@@ -28,14 +28,16 @@ class LibrosController extends AppController {
 							'Libro.isbn LIKE ' => '%'.$query.'%')
 						),	
 					));
-				foreach ($libros as $lib){ // Pongo en $ides los id de los libros que coinciden con la búsqueda
+                foreach ($libros as $lib){ 
+                    // Pongo en $ides los id de los libros que coinciden con la búsqueda
 					$ides[] = $lib['Libro']['id'];
 				}
 				$autores = $this->Libro->Autore->find('all', array(
 					'conditions' => array (
 						'Autore.nombre LIKE' => '%'.$query.'%')
 					));
-				foreach ($autores as $aut){ // añado a $ides los id cuyo autor coincide con la búsqueda
+                foreach ($autores as $aut){ 
+                    // añado a $ides los id cuyo autor coincide con la búsqueda
                     foreach($aut['Libro'] as $lib){
                         $ides[] = $lib['id'];
                     }

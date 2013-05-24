@@ -6,19 +6,26 @@ App::uses('Libro','Model');
 
 class InicioController extends AppController {
 
+    public $components = array('RequestHandler');
+    public $helpers = array('Text', 'Rss');
+
 	protected function _dameContenido($tabla){
 		$contenido = new ContenidoHtml();
 		$texto = $contenido->find('all', array('conditions' => array('Seccione.nombre' => $tabla, 'ContenidoHtml.borrado' => "no")));
         return $texto[0]['ContenidoHtml'];	
 	}	
+
     public function index() {
     }
+
 	public function contacto(){
-	}
+    }
+
 	public function legal() {
 		$contenido = $this->_dameContenido('legal');
 		$this->set('contenido', $contenido['texto']);
-	}
+    }
+
     public function novedades() {
         $libro = new Libro();
         $ultimos = $libro->find('all',array('limit'=>5,'order'=>array('Libro.id'=>'desc')));
@@ -27,22 +34,30 @@ class InicioController extends AppController {
             'contenido' => $contenido['texto'], 
             'fecha' => $contenido['fecha'],
             'ultimos' => $ultimos));
-	}
+        if ($this->RequestHandler->isRss()) {
+            return $this->set(compact('ultimos'));
+        }
+    }
+
 	public function quienes() {
 		$contenido = $this->_dameContenido('quienes somos');
 		$this->set('contenido', $contenido['texto']);
-	}
+    }
+
 	public function enlaces() {
 		$contenido = $this->_dameContenido('enlaces');
 		$this->set('contenido', $contenido['texto']);
-	}
+    }
+
 	public function mapa() {
-	}
+    }
+
     public function admin_pass(){
         if ($this->request->is('post')){
 		    $this->set('pass', $this->data);
         }
-	}
+    }
+
     public function mensaje(){
     }
 

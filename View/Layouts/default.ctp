@@ -11,6 +11,10 @@
 <?php echo $this->Html->meta(array(
     'name'=>'Keywords',
     'content'=>'biblioteca,Rubén Toca Lucio,cakephp')); ?>
+<?php echo $this->Html->meta(
+    'Novedades',
+    '/inicio/novedades.rss',
+    array('type' => 'rss')); ?>
 <?php echo $this->Html->css('estilos.min'); ?>
 <?php echo $this->Html->script('jquery'); ?>
 <?php echo $this->Html->script('jquery.corner.min'); ?>
