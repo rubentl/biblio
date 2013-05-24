@@ -32,7 +32,7 @@
  * In production mode, flash messages redirect after a time interval.
  * In development mode, you need to click the flash message to continue.
  */
-	Configure::write('debug', 1);
+	Configure::write('debug', 2);
 
 /**
  * Configure the Error handler used to handle errors for your application.  By default
@@ -229,7 +229,7 @@ Configure::write('Routing.prefixes', array('admin'));
  * Uncomment this line and correct your server timezone to fix 
  * any date & time related errors.
  */
-	date_default_timezone_set('UTC');\
+	date_default_timezone_set('UTC');
 
 
 /**
@@ -252,12 +252,18 @@ Configure::write('Routing.prefixes', array('admin'));
  * APC (http://pecl.php.net/package/APC)
  *
  */
-  	 Cache::config('default', array(
- 		'engine' => 'Apc', //[required]
- 	    'duration'=> 3600, //[optional]
- 		'probability'=> 100, //[optional]
-  		'prefix' => Inflector::slug(APP_DIR) . '_', //[optional]  prefix every cache file with this string
- 	));
+  	 // Cache::config('default', array(\
+
+ 	// 	'engine' => 'Apc', //[required]\
+
+ 	//     'duration'=> 3600, //[optional]\
+
+ 	// 	'probability'=> 100, //[optional]\
+
+  		// 'prefix' => Inflector::slug(APP_DIR) . '_', //[optional]  prefix every cache file with this string\
+
+ 	// ));\
+
  /*
  * Xcache (http://xcache.lighttpd.net/)
  *

@@ -2,7 +2,7 @@
 
 # /app/Controller/InicioController.php
 App::uses('ContenidoHtml', 'Model');
-App::uses('Libro','Model');
+App::uses('Libro', 'Model');
 
 class InicioController extends AppController {
 
@@ -35,7 +35,7 @@ class InicioController extends AppController {
             'fecha' => $contenido['fecha'],
             'ultimos' => $ultimos));
         if ($this->RequestHandler->isRss()) {
-            return $this->set(compact('ultimos'));
+                return $this->set(compact('ultimos'));
         }
     }
 

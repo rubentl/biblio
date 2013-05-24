@@ -16,7 +16,9 @@
     '/inicio/novedades.rss',
     array('type' => 'rss')); ?>
 <?php echo $this->Html->css('estilos.min'); ?>
+<?php echo $this->Html->css('debug_toolbar'); ?>
 <?php echo $this->Html->script('jquery'); ?>
+<?php echo $this->Html->script('js_debug_toolbar'); ?>
 <?php echo $this->Html->script('jquery.corner.min'); ?>
 <?php echo $this->Html->script('jquery.md5.min'); ?>
 <?php echo $this->Html->script('jquery.dropshadow.min'); ?>

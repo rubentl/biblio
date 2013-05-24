@@ -1,7 +1,8 @@
 <?php 
 $this->set('title_for_layout', 'Novedades - Biblioteca'); 
 $this->Html->addCrumb('Novedades', '/inicio/novedades');
-if (!isset($ultimos)){
+
+if ( empty($ultimos) ){
     $texto = str_replace("{{Company.Nombre}}", $Company_Nombre, $contenido);
     $final = str_replace("{{Company.Email}}", 
         $this->Html->link($Company_Email, 
@@ -19,5 +20,5 @@ if (!isset($ultimos)){
     echo $this->Html->link($ult['Libro']['titulo'],
             array('controller'=>'libros','action'=>'view',$ult['Libro']['id']),
             array('class'=>'enlace')).'<br />';
-}}?>
-</div>
+}?></div>
+<?php } ?>

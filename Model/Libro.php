@@ -40,7 +40,7 @@ class Libro extends AppModel {
 		}
 	}
 
-    public function beforeSave(){
+    public function beforeSave($options = array()){
         $this->data[$this->alias]['isbn'] = $this->ean13($this->data[$this->alias]['isbn']);
         return true;
     }
