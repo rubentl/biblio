@@ -2,7 +2,7 @@
 $this->set('title_for_layout', 'Novedades - Biblioteca'); 
 $this->Html->addCrumb('Novedades', '/inicio/novedades');
 
-if ( empty($ultimos) ){
+if ( !isset($ultimos) ){
     $texto = str_replace("{{Company.Nombre}}", $Company_Nombre, $contenido);
     $final = str_replace("{{Company.Email}}", 
         $this->Html->link($Company_Email, 

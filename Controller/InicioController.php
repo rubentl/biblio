@@ -29,11 +29,12 @@ class InicioController extends AppController {
     public function novedades() {
         $libro = new Libro();
         $ultimos = $libro->find('all',array('limit'=>5,'order'=>array('Libro.id'=>'desc')));
-		$contenido = $this->_dameContenido('novedades');
-        $this->set(array(
-            'contenido' => $contenido['texto'], 
-            'fecha' => $contenido['fecha'],
-            'ultimos' => $ultimos));
+        if (empty($ultimos)){
+            $contenido = $this->_dameContenido('novedades');
+            $this->set(array(
+                'contenido' => $contenido['texto'], 
+                'fecha' => $contenido['fecha']));
+        }
         if ($this->RequestHandler->isRss()) {
                 return $this->set(compact('ultimos'));
         }
