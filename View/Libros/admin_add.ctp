@@ -13,8 +13,9 @@
         'label' => array(
             'text' => 'Isbn: ', 
             'class' => 'alinea'), 
-        'size'=>'18'));
-    ?>
+            'size'=>'18',
+            'div'=>false));
+    ?><span class="ayuda"> &nbsp *Pon un 0 si no tienes ISBN. </span>
     </div>
 	</fieldset>
 <div class="centrado"><p><?php echo $this->Form->end(__('Probar suerte'));?></p></div>

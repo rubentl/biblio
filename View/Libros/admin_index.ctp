@@ -3,6 +3,15 @@
     $this->set('title_for_layout',__('Libros - Biblioteca')); 
 ?>
 
+<div class="actions centrado">
+        <?php echo $this->Html->link(__('Nuevo Libro'), array('action' => 'add'), array('class'=>'enlace')); ?>&nbsp;|&nbsp;
+        <?php echo $this->Html->link(__('Listar Editoriales'), array('controller' => 'editoriales', 'action' => 'index'), array('class'=>'enlace')); ?> &nbsp;|&nbsp;
+        <?php echo $this->Html->link(__('Listar Comentarios'), array('controller' => 'comentarios', 'action' => 'index'), array('class'=>'enlace')); ?> &nbsp;|&nbsp;
+        <?php echo $this->Html->link(__('Listar Contenidos'), array('controller' => 'contenidos', 'action' => 'index'), array('class'=>'enlace')); ?> <br /> 
+        <?php echo $this->Html->link(__('Listar Prestamos'), array('controller' => 'prestamos', 'action' => 'index'), array('class'=>'enlace')); ?> &nbsp;|&nbsp;
+        <?php echo $this->Html->link(__('Listar Autores'), array('controller' => 'autores', 'action' => 'index'), array('class'=>'enlace')); ?> &nbsp;|&nbsp;
+        <?php echo $this->Html->link(__('Listar Temas'), array('controller' => 'temas', 'action' => 'index'), array('class'=>'enlace')); ?> 
+</div>
 	<h1><?php echo __('Libros');?></h1>
 	<table id="tabla">
 	<tr>
@@ -42,12 +51,3 @@
         echo '</span>'
 	?>
     </p>
-<div class="actions centrado">
-		<?php echo $this->Html->link(__('Nuevo Libro'), array('action' => 'add'), array('class'=>'enlace')); ?>&nbsp;|&nbsp;
-		<?php echo $this->Html->link(__('Listar Editoriales'), array('controller' => 'editoriales', 'action' => 'index'), array('class'=>'enlace')); ?> &nbsp;|&nbsp;
-		<?php echo $this->Html->link(__('Listar Comentarios'), array('controller' => 'comentarios', 'action' => 'index'), array('class'=>'enlace')); ?> &nbsp;|&nbsp;
-		<?php echo $this->Html->link(__('Listar Contenidos'), array('controller' => 'contenidos', 'action' => 'index'), array('class'=>'enlace')); ?> <br /> 
-		<?php echo $this->Html->link(__('Listar Prestamos'), array('controller' => 'prestamos', 'action' => 'index'), array('class'=>'enlace')); ?> &nbsp;|&nbsp;
-		<?php echo $this->Html->link(__('Listar Autores'), array('controller' => 'autores', 'action' => 'index'), array('class'=>'enlace')); ?> &nbsp;|&nbsp;
-		<?php echo $this->Html->link(__('Listar Temas'), array('controller' => 'temas', 'action' => 'index'), array('class'=>'enlace')); ?> 
-</div>

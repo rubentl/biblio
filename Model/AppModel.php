@@ -14,7 +14,7 @@ class AppModel extends Model {
 	
     public function beforeFind($queryData){
         if ($_SESSION['Tipo'] !== 'admin'){
-            $queryData['conditions'][$this->name.'.borrado'] = "no";
+            $queryData['conditions'][$this->alias.'.borrado'] = "no";
         }
 		return $queryData;
 	}

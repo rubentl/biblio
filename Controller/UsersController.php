@@ -7,7 +7,6 @@ App::uses('AppController', 'Controller');
  */
 class UsersController extends AppController {
 	
-    public $components = array('MathCaptcha');
     
     public function login(){
 		if ($this->request->is('post')){
@@ -60,23 +59,25 @@ class UsersController extends AppController {
  * @return void
  */
     public function add() {
-    	$this->set('captcha', $this->MathCaptcha->getCaptcha());
-        
+
+        $this->Session->write('Users.result', '4');
+        $this->set('captcha_text', __('¿Qué resulta de 6 - 2?:  '));
         if ($this->Session->check('User')){
             $this->Session->setFlash(__('Ya estás registrado'));
             $this->redirect(array('controller'=>'inicio','action'=>'mensaje'));
         }
 		if ($this->request->is('post')) {
             $this->User->create();
-            if ($this->MathCaptcha->validate($this->request->data['User']['captcha'])){
+            if ($this->Session->read('Users.result') === $this->request->data['User']['captcha'])
+            {
 			    if ($this->User->save($this->request->data)) {
 				    $this->Session->setFlash(__('Te has registrado con éxito. <br /> Ahora puedes iniciar sesión con tu nombre y contraseña.'));
-				    $this->redirect(array('action' => 'index'));
 			    } else {
 				    $this->Session->setFlash(__('Ha habido un fallo en el registro.'));
                 }
+				$this->redirect(array('action' => 'index'));
             } else {
-                $this->Session->setFlash('El resultado calculado es incorrecto. Int&eacute;ntalo otra vez');
+                $this->Session->setFlash(__('El resultado calculado es incorrecto. Int&eacute;ntalo otra vez'));
             }           
 		}
 		$tipos = $this->User->Tipo->find('list');

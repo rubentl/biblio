@@ -1,10 +1,10 @@
 <?php $sesion = $this->Util->sesion();?>
 <div id="registro">
 <?php if ($sesion) : ?>
-	Bienvenido <strong><?php echo $sesion['User'] ?></strong>.
-    <?php if ($sesion['Tipo'] === 'admin') : ?>
+	Bienvenido/a <strong><?php echo $sesion['User'] ?></strong>.
+    <?php if ($sesion['Tipo'] === 'admin'): ?>
 		<a href="<?php echo $this->Html->url('/admin/administracion/') ?>" title="Ir a la zona de administración" class="enlace mizdo">Administración</a>
-    <?php endif; ?>	
+        <?php endif; ?>    
     <br />
     <a href="<?php echo $this->Html->url('/users/edit/'.$sesion['Id']) ?>" title="modificar la cuenta">Modificar cuenta</a>&nbsp;|&nbsp;
     <a href="<?php echo $this->Html->url('/users/delete') ?>" title="borrar la cuenta">Borrar cuenta</a>&nbsp;|&nbsp;

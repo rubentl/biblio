@@ -11,7 +11,8 @@
 <div class="mizdo">
     <?php
 		echo $this->Form->input('nombre', array('label'=>array('text'=>'Nombre: ','class'=>'alinea')));
-		echo $this->Form->input('borrado', array('label'=>array('text'=>'Borrado: ','class'=>'alinea'), 'size'=>'2'));
+		echo $this->Form->input('borrado', array('label'=>array('text'=>'Borrado:
+        ','class'=>'alinea'), 'size'=>'2', 'value'=>'no'));
     ?>
 </div>
 	</fieldset>

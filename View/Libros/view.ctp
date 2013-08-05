@@ -63,7 +63,7 @@
 </div>
 
 <div class="related">
-	<?php if (!empty($libro['Contenido'])):?>
+	<?php if (!empty($contenido)):?>
 	<h3><?php echo __('Contenidos');?>
      <?php if ($sesion): ?>
     <input type="button" value="Añadir Contenido" onclick="location.href='<?php echo $this->Html->url('/contenidos/add/'.$libro['Libro']['id']);?>'">

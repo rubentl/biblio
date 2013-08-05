@@ -12,7 +12,8 @@
 	<?php
 		echo $this->Form->input('nombre', array('label' => array('text' => 'Nombre: ', 'class' => 'alinea'), 'size'=>'40'));
 		echo $this->Form->input('ciudad', array('label' => array('text' => 'Ciudad: ', 'class' => 'alinea'), 'size'=>'40'));
-		echo $this->Form->input('borrado', array('label' => array('text' => 'Borrado: ', 'class' => 'alinea'), 'size'=>'2'));
+		echo $this->Form->input('borrado', array('label' => array('text' => 'Borrado: ',
+        'class' => 'alinea'), 'size'=>'2', 'value'=>'no'));
 	?>
     </div>
 	</fieldset>

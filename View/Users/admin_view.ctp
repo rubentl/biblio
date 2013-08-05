@@ -5,6 +5,7 @@
 ?>
 <h1><?php  echo __('Usuario');?></h1>
 <div id="cristal">
+<table>
 <?php 
 	echo $this->Util->centrar(array('izda'=>__('Id:'),'dcha'=>h($user['User']['id']))); 
 	echo $this->Util->centrar(array('izda'=>__('Nombre:'),'dcha'=>h($user['User']['username']))); 
@@ -17,6 +18,7 @@
 	echo $this->Util->centrar(array('izda'=>__('Tipo:'),'dcha'=>h($user['Tipo']['nombre']))); 
 	echo $this->Util->centrar(array('izda'=>__('Borrado:'),'dcha'=>h($user['User']['borrado']))); 
 ?>
+</table>
 </div>
 
 <h3><?php echo __('Comentarios');?></h3>

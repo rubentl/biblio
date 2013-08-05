@@ -23,8 +23,8 @@ class Contenido extends AppModel {
 			'notempty' => array(
 				'rule' => array('notempty'),
 				'message' => 'No has escogido ningún archivo',
-				//'allowEmpty' => false,
-				//'required' => false,
+				'allowEmpty' => false,
+				'required' => true
 				//'last' => false, // Stop validation after this rule
 				//'on' => 'create', // Limit validation to 'create' or 'update' operations
 			),

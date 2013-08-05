@@ -12,8 +12,8 @@ $this->Html->addCrumb('Mapa web', '/inicio/mapa');
 </ul>
 <h2>Registro</h2>
 <ul>
-    <li><?php echo $this->Html->link('Registrarse', '/registro/nuevo', array('class' => 'enlace','title'=>'Registrarse')); ?></li>
-    <li><?php echo $this->Html->link('Acceder como un usuario', '/registro/nuevo', array('class' => 'enlace','title'=>'Login')); ?></li>
+    <li><?php echo $this->Html->link('Registrarse', '/users/add', array('class' => 'enlace','title'=>'Registrarse')); ?></li>
+    <li><?php echo $this->Html->link('Acceder como un usuario', '/users/login', array('class' => 'enlace','title'=>'Login')); ?></li>
 </ul>
 </div>
 <div id="dcha">

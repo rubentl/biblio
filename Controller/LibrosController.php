@@ -31,7 +31,7 @@ class LibrosController extends AppController {
                 foreach ($libros as $lib){ 
                     // Pongo en $ides los id de los libros que coinciden con la búsqueda
 					$ides[] = $lib['Libro']['id'];
-				}
+                }
 				$autores = $this->Libro->Autore->find('all', array(
 					'conditions' => array (
 						'Autore.nombre LIKE' => '%'.$query.'%')
@@ -108,6 +108,11 @@ class LibrosController extends AppController {
 		if (!$this->Libro->exists()) {
 			throw new NotFoundException(__('Libro no válido'));
         }
+        $todos_temas = array(); 
+        $todos_autores = array();
+        $comentario = array();
+        $contenido = array();
+
 		$this->Libro->recursive = 2;
         $libro = $this->Libro->read(null, $id);
         if (!empty($libro['Autore']) ){
@@ -191,7 +196,7 @@ class LibrosController extends AppController {
                         'controller' => 'inicio',
                         'action' => 'mensaje'));
             }else{
-                $this->Session->setFlash(__('El libro no se pudo guardó.'));
+                $this->Session->setFlash(__('El libro no se pudo guardar.'));
 			    $this->redirect(array(
                         'controller' => 'inicio',
                         'action' => 'mensaje'));
@@ -211,7 +216,7 @@ class LibrosController extends AppController {
 
 	public function admin_add() {
         if ($this->request->is('post')) {
-            if ($this->request->data['Libro']['isbn'] !== ''){
+            if ($this->request->data['Libro']['isbn'] !== '0'){
                 // convierto isbn a ean13
                 $isbn = $this->Libro->ean13($this->request->data['Libro']['isbn']); 
                 $id_temp = $this->Libro->find('first',array(
@@ -412,7 +417,7 @@ class LibrosController extends AppController {
             //Correcciones en la presentación de los datos
             $tmp = substr($res['Edición:'],0,1); //cogemos sólo el número de la Edición
             $res['Edición:'] = $tmp;
-            if (isset($res['Fecha Impresión:'])) $res['Fecha Edición:'] = $res['Fecha Impresión'];
+            if (isset($res['Fecha Impresión:'])) $res['Fecha Edición:'] = $res['Fecha Impresión:'];
             $tmp = explode('/',$res['Fecha Edición:']); //cogemos sólo el Año
             $res['Fecha Edición:'] = $tmp[1];
             $tmparr = array();

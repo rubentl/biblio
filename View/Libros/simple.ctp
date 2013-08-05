@@ -7,7 +7,7 @@ $this->Html->addCrumb('Resultados', '/libros/simple');
     	<h2 class="centrado">
         <?php echo $this->Session->flash();  ?>
         </h2>
-<? else: ?>
+<?php else: ?>
 	<table id="tabla">
 	<tr>
 			<th><?php echo $this->Paginator->sort('titulo');?></th>

@@ -45,10 +45,10 @@ class ContenidosController extends AppController {
 			$this->Contenido->create();
 			if ($this->Contenido->save($this->request->data)) {
 				$this->Session->setFlash(__('Contenido guardado'));
-				$this->redirect(array('action' => 'index'));
 			} else {
 				$this->Session->setFlash(__('El contenido no se pudo guardar.'));
 			}
+			$this->redirect(array('action' => 'index'));
 		}
 		$libros = $this->Contenido->Libro->findById($libro);
 		$users = $this->Contenido->User->findById($this->Session->read('Id'));
@@ -138,10 +138,10 @@ class ContenidosController extends AppController {
 			$this->Contenido->create();
 			if ($this->Contenido->save($this->request->data)) {
 				$this->Session->setFlash(__('El contenido fue guardado'));
-				$this->redirect(array('action' => 'index'));
 			} else {
 				$this->Session->setFlash(__('El contenido no se salvó.'));
 			}
+			$this->redirect(array('action' => 'index'));
 		}
 		$libros = $this->Contenido->Libro->find('list');
 		$users = $this->Contenido->User->find('list');
@@ -162,10 +162,10 @@ class ContenidosController extends AppController {
 		if ($this->request->is('post') || $this->request->is('put')) {
 			if ($this->Contenido->save($this->request->data)) {
 				$this->Session->setFlash(__('El contenido se guardó'));
-				$this->redirect(array('action' => 'index'));
 			} else {
 				$this->Session->setFlash(__('El contenido no se pudo guardar.'));
 			}
+			$this->redirect(array('action' => 'index'));
 		} else {
 			$this->request->data = $this->Contenido->read(null, $id);
 		}

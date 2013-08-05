@@ -11,11 +11,13 @@
 		<legend><?php echo __('Nuevo contenido'); ?></legend>
     <div class="mizdo">
 	<?php
-		echo $this->Form->input('nombre', array('label' => array('text' => 'Nombre: ', 'class' => 'alinea'),'size' => '40'));
-		echo $this->Form->input('description', array('label' => array('text' => 'Descripción: ', 'class' => 'alinea'), 'size' => '70'));
+		echo $this->Form->file('nombre', array('label' => array('text' => 'Archivo: ', 'class' => 'alinea')));
+		echo $this->Form->input('description', array('label' => array('text' =>
+        'Descripción: ', 'class' => 'alinea'), 'size' => '40', 'maxlength'=>80));
 		echo $this->Form->input('libro_id', array('label'=> array('text'=>'Libro: ', 'class'=>'alinea'), 'size'=>'5'));
 		echo $this->Form->input('user_id', array('label'=> array('text'=>'Usuario:', 'class'=>'alinea'), 'size'=>'5'));
-		echo $this->Form->input('borrado', array('label'=> array('text'=>'Borrado:', 'class'=>'alinea'), 'size'=>'2'));
+		echo $this->Form->input('borrado', array('label'=> array('text'=>'Borrado:',
+        'class'=>'alinea'), 'size'=>'2', 'value'=>'no'));
     ?>
     </div>
 	</fieldset>
