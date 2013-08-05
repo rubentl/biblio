@@ -1,0 +1,1 @@
+/srv/http/biblioteca/app/Plugin/DebugKit/webroot/js/js_debug_toolbar.js
