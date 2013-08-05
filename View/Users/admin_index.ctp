@@ -5,15 +5,24 @@
 ?>
 <div class="users index">
 	<h1><?php echo __('Usuarios');?></h1>
+	<p>
+	<?php
+	echo $this->Paginator->counter(array(
+        'format' => __('Página <strong>{:page}</strong> de <strong>{:pages}</strong>, <strong>{:current}</strong> registros de <strong>{:count}</strong>')));
+        echo '<span class="mizdo">';
+		echo $this->Paginator->first('<< ', array(), null, array('class' => 'prev disabled'));
+		echo $this->Paginator->prev(' < ', array(), null, array('class' => 'prev disabled'));
+		echo $this->Paginator->numbers(array('separator' => ','));
+        echo $this->Paginator->next(' > ', array(), null, array('class' => 'next disabled'));
+        echo $this->Paginator->last(' >> ', array(), null, array('class' => 'next disabled'));
+        echo '</span>'
+	?> </p>
 	<table id="tabla">
 	<tr>
 			<th><?php echo $this->Paginator->sort('id');?></th>
 			<th><?php echo $this->Paginator->sort('username');?></th>
 			<th><?php echo $this->Paginator->sort('email');?></th>
-			<th><?php echo $this->Paginator->sort('dni');?></th>
-			<th><?php echo $this->Paginator->sort('noticias');?></th>
 			<th><?php echo $this->Paginator->sort('tipo_id');?></th>
-			<th><?php echo $this->Paginator->sort('borrado');?></th>
 			<th class="actions"><?php echo __('Acciones');?></th>
 	</tr>
 	<?php
@@ -22,12 +31,8 @@
 		<td class="centrado"><?php echo h($user['User']['id']); ?>&nbsp;</td>
 		<td class="centrado"><?php echo h($user['User']['username']); ?>&nbsp;</td>
 		<td class="centrado"><?php echo h($user['User']['email']); ?>&nbsp;</td>
-		<td class="centrado"><?php echo h($user['User']['dni']); ?>&nbsp;</td>
-		<td class="centrado"><?php echo h($user['User']['noticias']); ?>&nbsp;</td>
-		<td class="centrado">
-			<?php echo $this->Html->link($user['Tipo']['nombre'], array('controller' => 'tipos', 'action' => 'view', $user['Tipo']['id'])); ?>
+		<td><?php echo $this->Html->link($user['Tipo']['nombre'], array('controller' => 'tipos', 'action' => 'view', $user['Tipo']['id'])); ?>
 		</td>
-		<td class="centrado"><?php echo h($user['User']['borrado']); ?>&nbsp;</td>
 		<td class="actions centrado">
 			<?php echo $this->Html->link(__('Ver'), array('action' => 'view', $user['User']['id'])); ?> -
 			<?php echo $this->Html->link(__('Editar'), array('action' => 'edit', $user['User']['id'])); ?> -
@@ -40,12 +45,12 @@
 	<?php
 	echo $this->Paginator->counter(array(
         'format' => __('Página <strong>{:page}</strong> de <strong>{:pages}</strong>, <strong>{:current}</strong> registros de <strong>{:count}</strong>')));
-	?>
-	<?php
         echo '<span class="mizdo">';
-		echo $this->Paginator->prev('<' . __('Ant').' - ', array(), null, array('class' => 'prev disabled'));
+		echo $this->Paginator->first('<< ', array(), null, array('class' => 'prev disabled'));
+		echo $this->Paginator->prev(' < ', array(), null, array('class' => 'prev disabled'));
 		echo $this->Paginator->numbers(array('separator' => ','));
-        echo $this->Paginator->next(__('Sig') . '>', array(), null, array('class' => 'next disabled'));
+        echo $this->Paginator->next(' > ', array(), null, array('class' => 'next disabled'));
+        echo $this->Paginator->last(' >> ', array(), null, array('class' => 'next disabled'));
         echo '</span>'
 	?> </p>
 </div>

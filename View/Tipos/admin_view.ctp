@@ -4,11 +4,13 @@
 ?>
 <h1><?php  echo __('Tipo');?></h1>
 <div id="cristal">
+<table>
 <?php 
 	echo $this->Util->centrar(array('izda'=>__('Id:'),'dcha'=>h($tipo['Tipo']['id']))); 
 	echo $this->Util->centrar(array('izda'=>__('Nombre:'),'dcha'=>h($tipo['Tipo']['nombre']))); 
 	echo $this->Util->centrar(array('izda'=>__('Borrado:'),'dcha'=>h($tipo['Tipo']['borrado']))); 
 ?>
+</table>
 </div>
 <div class="actions centrado">
 <p>

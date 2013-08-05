@@ -41,7 +41,9 @@ class Libro extends AppModel {
 	}
 
     public function beforeSave($options = array()){
-        $this->data[$this->alias]['isbn'] = $this->ean13($this->data[$this->alias]['isbn']);
+        if (!in_array($this->data[$this->alias]['isbn'],array('','0',' '))){
+            $this->data[$this->alias]['isbn'] = $this->ean13($this->data[$this->alias]['isbn']);
+        }
         return true;
     }
 
@@ -78,30 +80,18 @@ class Libro extends AppModel {
 			//),
 		),
         'isbn' => array(
-            'escero' => array(
-                'rule' => array('inlist', array('0','',' ')),
-                // 'message' => 'Este ISBN ya existe',
-                'allowEmpty' => true,
-                'required' => false,
-                'last' => false,
-                'on' => 'create'
-            ),
-			 'isUnique' => array(
-			    'rule' => array('isUnique'),
-				'message' => 'Este isbn ya existe',
-				'allowEmpty' => true,
-				'required' => false,
-				'last' => true, // Stop validation after this rule
-				'on' => 'create', // Limit validation to 'create' or 'update' operations
-			),
 			'numeric' => array(
 				'rule' => array('numeric'),
 				'message' => 'Esto debe ser un número',
 				'allowEmpty' => true,
 				'required' => false,
-				'last' => true, // Stop validation after this rule
-				'on' => 'create', // Limit validation to 'create' or 'update' operations
 			),
+            'checkisbn' => array(
+                'rule' => array('checkisbn', 'isbn'),
+                'message' => 'Este ISBN ya existe',
+                'allowEmpty' => true,
+                'required' => false,
+            ),
 		),
 		'anio' => array(
 			// 'blank' => array(
@@ -196,20 +186,20 @@ class Libro extends AppModel {
 	);
 
 
-    // function checkisbn(){
-    //     if (in_array($this->data['isbn'],array('','0',' '))){
-    //         return true;
-    //     }else{
-    //         $result = $this->find('isbn',array(
-    //             'conditions' =>  array(
-    //                 'Libro.isbn' => $this->data['isbn'])));
-    //         if (!empty($result)){
-    //             return false;
-    //         }else{
-    //             return true;
-    //         }
-    //     }
-    // }
+    function checkisbn($isbn){
+        if (in_array($isbn,array('','0',' '))){
+            return true;
+        }else{
+            $result = $this->find('all',array(
+                'conditions' =>  array(
+                    'Libro.isbn' => $isbn)));
+            if (!empty($result)){
+                return false;
+            }else{
+                return true;
+            }
+        }
+    }
 
 	//The Associations below have been created with all possible keys, those that are not needed can be removed
 
@@ -222,9 +212,6 @@ class Libro extends AppModel {
 		'Editoriale' => array(
 			'className' => 'Editoriale',
 			'foreignKey' => 'editoriale_id',
-			'conditions' => '',
-			'fields' => '',
-			'order' => ''
 		)
 	);
 

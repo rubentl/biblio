@@ -59,7 +59,7 @@ $(window).load(function(){
 		}
 	});
 
-	$("#UserAddForm").submit(function(event) {  
+	$("#UserAddForm, #UserAdminAddForm").submit(function(event) {  
 		var pass = $("input#UserPassword").val();
 		var repass = $("input#UserRepPassword").val();
 		var passmd5 = "";

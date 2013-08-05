@@ -20,7 +20,8 @@
         echo $this->Form->input('rep_password', array('label' => array('text' => '*Repite Contraseña: '), 'type' => 'password', 'size'=>'30'));
 
 		echo $this->Form->input('tipo_id', array('label' => array('text' => 'Tipo: ', 'class' => 'alinea'), 'size'=>'3'));
-		echo $this->Form->input('borrado', array('label' => array('text' => 'Borrado: ', 'class' => 'alinea'), 'size'=>'4'));
+		echo $this->Form->input('borrado', array('label' => array('text' => 'Borrado: ',
+        'class' => 'alinea'), 'size'=>'4', 'value'=>'no'));
 	?></div>
 	</fieldset>
 <div class="centrado"><p><?php echo $this->Form->end(__('Guardar'));?></p></div>

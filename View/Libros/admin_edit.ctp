@@ -31,7 +31,7 @@
 		echo $this->Form->input('isbn', array('label' => array('text' => 'Isbn: ', 'class'=>'alinea'), 'size'=>'13'));
 		echo $this->Form->input('tejuelo', array('label' => array('text' => 'Tejuelo: ', 'class' => 'alinea')));
 		echo $this->Form->input('anio', array('label' => array('text' => 'Año: ', 'class'=>'alinea'), 'size'=>'5'));
-		echo $this->Form->input('Editoriale', array('label' => array('text' => 'Editorial: ', 'class' => 'alinea')));
+		echo $this->Form->input('editoriale_id', array('label' => array('text' => 'Editorial: ', 'class' => 'alinea')));
 		echo $this->Form->input('edicion', array('label' => array('text' => 'Edición: ', 'class'=>'alinea'), 'size'=>'3'));
 		echo $this->Form->input('encuadernacion', array('label' => array('text' => 'Encuad.: ', 'class' => 'alinea')));
 		echo $this->Form->input('copias', array('label' => array('text' => 'Copias: ', 'class'=>'alinea'), 'size'=>'3'));

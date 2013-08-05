@@ -8,6 +8,20 @@ $this->Html->addCrumb('Resultados', '/libros/simple');
         <?php echo $this->Session->flash();  ?>
         </h2>
 <?php else: ?>
+	<p>
+	<?php
+	echo $this->Paginator->counter(array(
+	'format' => __('Página <strong>{:page}</strong> de <strong>{:pages}</strong>, <strong>{:current}</strong> registros de <strong>{:count}</strong>')
+	));
+    echo '<span class="mizdo">';
+    echo $this->Paginator->first('<< ', array(), null, array('class' => 'prev disabled'));
+    echo $this->Paginator->prev(' < ', array(), null, array('class' => 'prev disabled'));
+    echo $this->Paginator->numbers(array('separator' => ' '));
+    echo $this->Paginator->next(' > ', array(), null, array('class' => 'next disabled'));
+    echo $this->Paginator->last(' >> ', array(), null, array('class' => 'next disabled'));
+    echo '</span>'
+	?>
+    </p>
 	<table id="tabla">
 	<tr>
 			<th><?php echo $this->Paginator->sort('titulo');?></th>
@@ -46,12 +60,12 @@ $this->Html->addCrumb('Resultados', '/libros/simple');
 	echo $this->Paginator->counter(array(
 	'format' => __('Página <strong>{:page}</strong> de <strong>{:pages}</strong>, <strong>{:current}</strong> registros de <strong>{:count}</strong>')
 	));
-	?>	
-	<?php
         echo '<span class="mizdo">';
-		echo $this->Paginator->prev('<' . __('Ant').' - ', array(), null, array('class' => 'prev disabled'));
+		echo $this->Paginator->first('<< ', array(), null, array('class' => 'prev disabled'));
+		echo $this->Paginator->prev(' < ', array(), null, array('class' => 'prev disabled'));
 		echo $this->Paginator->numbers(array('separator' => ' '));
-        echo $this->Paginator->next(' - '.__('Sig').'>', array(), null, array('class' => 'next disabled'));
+        echo $this->Paginator->next(' > ', array(), null, array('class' => 'next disabled'));
+        echo $this->Paginator->last(' >> ', array(), null, array('class' => 'next disabled'));
         echo '</span>'
 	?>
     </p>

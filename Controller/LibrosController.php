@@ -428,7 +428,7 @@ class LibrosController extends AppController {
                     foreach($regular as $reg){
                         $autor = ereg_replace($reg,'',$autor);
                     }
-                    $tmparr[] = trimutf8($autor);
+                    $tmparr[] = $autor; //trimutf8($autor)
                 }
             }
             $res['Autor/es:'] = $tmparr;

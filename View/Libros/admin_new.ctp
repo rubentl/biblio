@@ -33,7 +33,7 @@
         echo $this->Form->input('isbn', array('label' => array('text' => 'Isbn: ', 'class'=>'alinea'), 'size'=>'13'));
 		echo $this->Form->input('tejuelo', array('label' => array('text' => 'Tejuelo: ', 'class' => 'alinea')));
 		echo $this->Form->input('anio', array('label' => array('text' => 'Año: ', 'class'=>'alinea'), 'size'=>'5'));
-        echo $this->Form->input('Editoriale', array('label' => array('text' => 'Editorial: ', 'class' => 'alinea'),'div'=>false));
+        echo $this->Form->input('editoriale_id', array('label' => array('text' => 'Editorial: ', 'class' => 'alinea'),'div'=>false));
         echo $this->Html->link(__('Nueva Editorial'), array('controller' => 'editoriales',
         'action' => 'add'), array('class'=>'enlace-boton', 'target'=>'_blank'));
 		echo $this->Form->input('edicion', array('label' => array('text' => 'Edición: ', 'class'=>'alinea'), 'size'=>'3'));
