@@ -60,6 +60,7 @@ class InicioController extends AppController {
     }
 
     public function mensaje(){
+        $this->render('mensaje');
     }
 
     public function admin_mensaje(){

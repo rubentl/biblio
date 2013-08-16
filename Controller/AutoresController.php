@@ -40,12 +40,18 @@ class AutoresController extends AppController {
 	public function admin_add() {
 		if ($this->request->is('post')) {
 			$this->Autore->create();
-			if ($this->Autore->save($this->request->data)) {
-				$this->Session->setFlash(__('Se ha guardado el autor'));
-				$this->redirect(array('action' => 'index'));
-			} else {
-				$this->Session->setFlash(__('Error guardando el autor.'));
-			}
+            $this->Autore->set($this->request->data);
+            if (!$this->Autore->checkExist()){
+                if ($this->Autore->save($this->request->data)) {
+                    $this->Session->setFlash(__('Se ha guardado el autor'));
+                } else {
+                    $this->Session->setFlash(__('Error guardando el autor.'));
+                }
+            }else{
+                $this->Session->setFlash(__('Este autor ya existe.'));
+            }
+            $this->redirect(array('controller' => 'inicio', 
+                'action' => 'mensaje'));
 		}
 		$libros = $this->Autore->Libro->find('list');
 		$this->set(compact('libros'));

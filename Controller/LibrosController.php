@@ -192,15 +192,15 @@ class LibrosController extends AppController {
             $this->Libro->create();
             if ($this->Libro->save($this->request->data)){
                 $this->Session->setFlash(__('El libro se guardó.'));
-			    $this->redirect(array(
-                        'controller' => 'inicio',
-                        'action' => 'mensaje'));
+                $this->Session->delete('Datos');
+                $this->Session->delete('Isbn');
+                $this->Session->delete('Ides');
             }else{
                 $this->Session->setFlash(__('El libro no se pudo guardar.'));
-			    $this->redirect(array(
-                        'controller' => 'inicio',
-                        'action' => 'mensaje'));
             }
+            $this->redirect(array(
+                    'controller' => 'inicio',
+                    'action' => 'mensaje'));
         }
 		$editoriales = $this->Libro->Editoriale->find('list');
 		$autores = $this->Libro->Autore->find('list'); //TODO: autores con autocomplete con ajax.
@@ -216,7 +216,7 @@ class LibrosController extends AppController {
 
 	public function admin_add() {
         if ($this->request->is('post')) {
-            if ($this->request->data['Libro']['isbn'] !== '0'){
+            if (!in_array($this->request->data['Libro']['isbn'],array('0','',' '))){
                 // convierto isbn a ean13
                 $isbn = $this->Libro->ean13($this->request->data['Libro']['isbn']); 
                 $id_temp = $this->Libro->find('first',array(
@@ -228,58 +228,103 @@ class LibrosController extends AppController {
                 }
                 // llamo a _buscarLibro con el isbn para que devuelva un array con los 
                 // datos del libro
+                $error = 0;
                 $datos = $this->_buscarLibro($isbn);
-                if (($datos === 'Error')){
-                    $this->Session->setFlash(__('No se encontró el libro.<br />Lo siento, debes hacerlo a mano.'),
-                        'default',array('class'=>'error-message'),'encontrado');
-                    $this->redirect('/admin/libros/new');
-                }else{ //se encontró el libro y se guarda
+                switch($datos['Error']) {
+                    case 'Sin datos':
+                        $this->Session->setFlash(__('No se encontró el libro.<br />Lo siento, debes hacerlo a mano.'),
+                            'default',array('class'=>'error-message'),'encontrado');
+                        $this->redirect('/admin/libros/new');
+                        break;
+                    case 'Faltan datos':
+                        $error = 1;
+                        // break;
+                    default:  //se encontró el libro y se guarda
                     $ides = array(); // para guardar todas las ides de los registros
                     // guadar la editorial
-                    $edito = new Editoriale();
-                    $edito->set(array('nombre' => $datos['Publicación:'],
-                        'ciudad' => $datos['Provincia:']));
-                    if (!$edito->checkExist()) $edito->save(null,false);
-                    $ides['Editorial'] = $edito->getID();
+                    if (isset($datos['Publicación:'])){
+                        $edito = new Editoriale();
+                        if (isset($datos['Provincia:'])){
+                            $edito->set(array('ciudad'=>$datos['Provincia:']));
+                        }
+                        $edito->set(array('nombre' => $datos['Publicación:']));
+                        if (!$edito->checkExist()) $edito->save(null,false);
+                        $ides['Editorial'] = $edito->getID();
+                    }else{
+                        $error = 1;
+                        // break;
+                    }
                     // guardar los autores
                     $ides['Autores'] = array();
+                    if (isset($datos['Autor/es:'])){
                     foreach($datos['Autor/es:'] as $autor){
                         $aut = new Autore();
                         $aut->set(array('nombre' => $autor));
                         if (!$aut->checkExist()) $aut->save(null,false);
                         $ides['Autores'][] = $aut->getID();
                     }
+                    }else{
+                        $error = 1;
+                        // break;
+                    }
                     // guardar los temas
                     $ides['Temas'] = array();
+                    if (isset($datos['Materia/s:'])){
                     foreach($datos['Materia/s:'] as $tema){
                         $tem = new Tema();
                         $tem->set(array('nombre' => $tema));
                         if (!$tem->checkExist()) $tem->save(null,false);
                         $ides['Temas'][] = $tem->getID();
                     }
+                    }else{
+                        $error = 1;
+                        // break;
+                    }
                     // guardar el Libro
                     $this->Libro->create();
-                    $this->Libro->set(array(
-                        'Libro' => array(
-                            'titulo' => $datos['Título:'],
-                            'edicion' => $datos['Edición:'], 
-                            'anio' => $datos['Fecha Edición:'],
-                            'isbn' => $isbn,
-                            'encuadernacion' => $datos['Encuadernación:'],
-                            'editoriale_id' => $ides['Editorial']),
-                        'Autore' => $ides['Autores'],
-                        'Tema' => $ides['Temas']
-                    ));
-                    if (!$this->Libro->checkExist()){ 
-                        if ($this->Libro->save(null,false)){
-                            $this->Session->setFlash(__('Se guardó con éxito.'));
-                            $this->redirect('/admin/libros/view/'.$this->Libro->id);
-                        }
+                    if (isset($datos['Título:'])){
+                        $this->Libro->set(array('titulo'=>$datos['Título:']));
+                    }
+                    if (isset($datos['Edición:'])){
+                        $this->Libro->set(array('edicion'=>$datos['Edición:']));
+                    }
+                    if (isset($datos['Fecha Edición:'])){
+                        $this->Libro->set(array('anio'=>$datos['Fecha Edición:']));
+                    }
+                    if (isset($datos['Encuadernación:'])){
+                        $this->Libro->set(array('encuadernacion'=>$datos['Encuadernación:']));
+                    }
+                    if (isset($ides['Editorial'])){
+                        $this->Libro->set(array('editoriale_id'=>$ides['Editorial']));
+                    }
+                    if (isset($ides['Autores'])){
+                        $this->Libro->set(array('Autore'=>$ides['Autores']));
+                    }
+                    if (isset($ides['Temas'])){
+                        $this->Libro->set(array('Tema'=>$ides['Temas']));
+                    }
+                    if (isset($isbn)){
+                        $this->Libro->set(array('isbn'=>$isbn));
+                    }
+                    if ($error === 1){
+                        $this->Session->setFlash(__('Datos incompletos debes hacerlo a mano.'),
+                            'default',array('class'=>'error-message'),'encontrado');
+                        $this->Session->write('Datos',$datos);
+                        $this->Session->write('Isbn',$isbn);
+                        $this->Session->write('Ides',$ides);
+                        $this->redirect('/admin/libros/new');
                     }else{
-                        $this->Session->setFlash(__('Este libro ya existe.'));
-                        $this->redirect(array(
-                                'controller' => 'inicio',
-                                'action' => 'mensaje'));
+                        if (!$this->Libro->checkExist()){ 
+                            if ($this->Libro->save(null,false)){
+                                $this->Session->setFlash(__('Se guardó con éxito.'));
+                                $this->redirect('/admin/libros/view/'.$this->Libro->id);
+                            }
+                        }else{
+                            $this->Session->setFlash(__('Este libro ya existe.'));
+                            $this->redirect(array(
+                                    'controller' => 'inicio',
+                                    'action' => 'mensaje'));
+                        }
                     }
                 }
             }else{ // si está vacío el campo isbn
@@ -347,6 +392,7 @@ class LibrosController extends AppController {
         }
 
         function mcu($isbn){
+            $error = '0';
             $host = 'http://www.mcu.es';
             $url1 = $host.'/webISBN/tituloSimpleFilter.do?cache=init&prev_layout=busquedaisbn&layout=busquedaisbn&language=es';
             $postData = 'params.forzaQuery=N&params.cdispo=A&params.cisbnExt='.$isbn.'&params.liConceptosExt[0].texto&params.orderByFormdId=1&language=es&prev_layout=busquedaisbn&layout=busquedaisbn&action=Buscar';
@@ -363,7 +409,7 @@ class LibrosController extends AppController {
                 'referer'=>$url1));
             $html2 = str_get_html($html);
             if (gettype($html2->getElementById('aviso')) === 'object' ){
-                return 'Error';
+                return array('Error'=> 'Sin datos');
             }
             $enlace = $html2->find('div.isbnResDescripcion span strong a',0)->href;
             $editorial = $html2->find('div.isbnResDescripcion span a',1)->href;
@@ -415,23 +461,41 @@ class LibrosController extends AppController {
                 } 
             }
             //Correcciones en la presentación de los datos
-            $tmp = substr($res['Edición:'],0,1); //cogemos sólo el número de la Edición
-            $res['Edición:'] = $tmp;
-            if (isset($res['Fecha Impresión:'])) $res['Fecha Edición:'] = $res['Fecha Impresión:'];
-            $tmp = explode('/',$res['Fecha Edición:']); //cogemos sólo el Año
-            $res['Fecha Edición:'] = $tmp[1];
-            $tmparr = array();
-            $regular = array('\[.*\]','\(.*\)'); //quitamos los [] y () 
-            foreach($res['Autor/es:'] as $autor){
-                if (!strstr($autor,'tr.') && !strstr($autor,'coord.')){ 
-                    //sino es traductor ni coordinador lo aceptamos 
-                    foreach($regular as $reg){
-                        $autor = ereg_replace($reg,'',$autor);
-                    }
-                    $tmparr[] = $autor; //trimutf8($autor)
+            if (isset($res['Edición:'])){
+                $tmp = substr($res['Edición:'],0,1); //cogemos sólo el número de la Edición
+                $res['Edición:'] = $tmp;
+                if (isset($res['Fecha Edición:'])){
+                    $tmp = explode('/',$res['Fecha Edición:']); //cogemos sólo el Año
+                    $res['Fecha Edición:'] = $tmp[1];
+                }elseif (isset($res['Fecha Impresión:'])){
+                    $tmp = explode('/',$res['Fecha Impresión:']);
+                    $res['Fecha Edición:'] = $tmp[1];
+                }else{
+                    $error = 'Faltan datos'; 
                 }
+            }else{
+                $error = 'Faltan datos';
             }
-            $res['Autor/es:'] = $tmparr;
+            $tmparr = array();
+            $regular = array('\[.*\]','\(.*\)'); //quitamos los [] y ()
+            if (isset($res['Autor/es:'])){ 
+                foreach($res['Autor/es:'] as $autor){
+                    if (!strstr($autor,'tr.') && !strstr($autor,'coord.') 
+                            && !strstr($autor,'dir.')){ 
+                        //sino es traductor ni coordinador ni director lo aceptamos 
+                        foreach($regular as $reg){
+                            $autor = ereg_replace($reg,'',$autor);
+                        }
+                        // Si son varios autores.
+                        if (strstr($autor,'...')) $autor = 'Varios';
+                        $tmparr[] = trim($autor); //trimutf8($autor)
+                    }
+                }
+                $res['Autor/es:'] = $tmparr;
+            }else{
+                $error = 'Faltan datos';
+            }
+            $res['Error'] = $error;
             return $res;
         }
 
