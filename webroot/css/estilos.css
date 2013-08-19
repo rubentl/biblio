@@ -79,7 +79,8 @@ a:hover {
 #menu ul {
   list-style: none;
 }
-#menu li, .volver {
+#menu li,
+.volver {
   position: relative;
   margin: 0 0.3em;
   padding: 5px 0;
@@ -89,7 +90,8 @@ a:hover {
   height: 38px;
   background: url("../img/boton.png") top center no-repeat;
 }
-#menu ul li a, .volver a {
+#menu ul li a,
+.volver a {
   display: block;
   color: #6c5031;
   font-weight: bold;
@@ -119,6 +121,9 @@ input[type='checkbox'] {
   margin-top: 2px;
   border: 1px solid #ceb193;
 }
+select {
+  width: 300px;
+}
 .query {
   border: 2px outset #6c5031;
   height: 25px;
@@ -137,16 +142,21 @@ acronym {
   margin-top: 30px;
   font-size: 0.9em;
 }
-#contacto, #validaciones, #migas {
+#contacto,
+#validaciones,
+#migas {
   position: relative;
   margin: 1%;
   padding: 0 1%;
 }
-#contacto, #validaciones, .alinea {
+#contacto,
+#validaciones,
+.alinea {
   float: left;
   margin-top: 1px;
 }
-#validaciones, #contacto {
+#validaciones,
+#contacto {
   padding-top: 10px;
 }
 #migas {
@@ -155,17 +165,20 @@ acronym {
 #submit {
   margin-left: 50px;
 }
-fieldset a, .enlace {
+fieldset a,
+.enlace {
   color: #06F;
   text-decoration: underline;
 }
-.centrado, .volver {
+.centrado,
+.volver {
   text-align: center;
 }
 .justificado {
   text-align: justify;
 }
-#listado, #centrado {
+#listado,
+#centrado {
   position: relative;
   margin: 0 auto;
   padding: 0;
@@ -188,10 +201,12 @@ span.alinea {
 .form-error {
   border: 1px #ff0000 solid;
 }
-.mizdo, .volver {
+.mizdo,
+.volver {
   margin-left: 5em;
 }
-legend, .volver {
+legend,
+.volver {
   font-weight: bold;
 }
 .volver {

@@ -119,6 +119,7 @@
                 'text' => 'Editorial: ', 
                 'class' => 'alinea'),
             'div'=>false,
+            'size'=>'4',
             'value' => $editorial));
         echo $this->Html->link(__('Nueva Editorial'), array(
             'controller' => 'editoriales',
