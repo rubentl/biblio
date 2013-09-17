@@ -481,7 +481,8 @@ class LibrosController extends AppController {
             if (isset($res['Autor/es:'])){ 
                 foreach($res['Autor/es:'] as $autor){
                     if (!strstr($autor,'tr.') && !strstr($autor,'coord.') 
-                            && !strstr($autor,'dir.')){ 
+                        && !strstr($autor,'dir.') && !strstr($autor,'comp.')
+                        && !strstr($autor,'lit.') && !strstr($autor,'il.')){ 
                         //sino es traductor ni coordinador ni director lo aceptamos 
                         foreach($regular as $reg){
                             $autor = ereg_replace($reg,'',$autor);
